@@ -16,6 +16,19 @@
     <button type="submit" name="la">soumettre</button>
 </form>
 
+<h2>Catalogue des Titres</h2>
+<?php
+foreach ($movies as $m) {
+    echo "<li><b>" . $m->getTitle() . "</b> (" . $m->getType() . ") - ";
+    echo "Genre : " . ($m->getGenre() ?: '-') . " - ";
+    echo "Statut : " . ($m->getIsWatched() ? '<span style="color:green;">✔ VU</span>' : '<span style="color:orange;">✖ A VOIR</span>') . "</li>";
+}
+echo "</ul>";
+
+?>
+
+
+
 <?php
 render('default', true, [
     'title' => 'Acceuil',

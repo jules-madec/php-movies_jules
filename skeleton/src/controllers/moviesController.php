@@ -4,7 +4,7 @@ use Models\User;
 
 $error = [];
 $movie = new Models\Movie();
-$movie->getAll();
+$movies = $movie->getAll();
 
 if (!empty($_POST)) {
     $creerunfilm = new Models\Movie();
@@ -17,13 +17,14 @@ if (!empty($_POST)) {
     try {
         $creerunfilm->setType(($_POST['type']));
     } catch (\Exception $e) {
-        $error['email'] = $e->getMessage();
+        $error['type'] = $e->getMessage();
     }
     try {
         $creerunfilm->setrating($_POST['rating']);
     } catch (\Exception $e) {
-        $error['password'] = $e->getMessage();
+        $error['rating'] = $e->getMessage();
     }
+    $creerunfilm->setIsWatched(isset($_POST['is_watched']) ? 1 : 0);
 
     if (empty($error)) {
         if ($creerunfilm->register()) {
@@ -35,4 +36,5 @@ if (!empty($_POST)) {
 }
 render('index', false, [
     'error' => $error,
+    'movies' => $movies,
 ]);
